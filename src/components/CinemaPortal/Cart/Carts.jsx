@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 
+import { toast } from "react-toastify";
 import checkout from "../../../assets/icons/checkout.svg";
 
 import {
@@ -17,6 +18,9 @@ export default function Cart({ onCartHide }) {
     dispatch({
       type: REMOVE_FROM_CART,
       id: id,
+    });
+    toast.error("Item Remove From Cart", {
+      position: "top-right",
     });
   };
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 import Sidebar from "../../Sidebar/Sidebar";
 import MovieCard from "../MovieCard";
@@ -23,14 +24,17 @@ export default function MainLayout() {
     e?.stopPropagation();
     const index = carts.findIndex((m) => m.id === movie.id);
     if (index === -1) {
-      if (window.confirm("Sure to Add Cart?")) {
-        dispatch({
-          type: ADD_TO_CART,
-          payload: movie,
-        });
-      }
+      dispatch({
+        type: ADD_TO_CART,
+        payload: movie,
+      });
+      toast.success("Item added successfully", {
+        position: "top-right",
+      });
     } else {
-      alert("Item already in cart");
+      toast.info("Item Already In Your Cart", {
+        position: "top-right",
+      });
     }
   };
 
