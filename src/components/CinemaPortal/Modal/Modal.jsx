@@ -1,5 +1,5 @@
-import { getImageUrl } from "../../utils/movie-utility";
-import tag from "../../assets/tag.svg";
+import { getImageUrl } from "../../../utils/movie-utility";
+import tag from "../../../assets/tag.svg";
 
 /* eslint-disable react/prop-types */
 export default function Modal({ movieDetails, onModalClose }) {
@@ -41,7 +41,7 @@ export default function Modal({ movieDetails, onModalClose }) {
                   e.preventDefault();
                   onModalClose();
                 }}
-                className="border border-[#74766F] rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#6F6F6F] dark:text-gray-200 font-semibold text-sm"
+                className="border border-[#74766F] rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#6F6F6F] dark:text-gray-200 font-semibold text-sm cancel-btn"
                 href="#"
               >
                 Cancel

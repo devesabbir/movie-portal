@@ -1,12 +1,26 @@
 /* eslint-disable react/prop-types */
 import { getImageUrl } from "../../utils/movie-utility";
-import StarRating from "../StarRating/StarRating";
+import StarRating from "./StarRating/StarRating";
 import tag from "../../assets/tag.svg";
+import { useCineContext, useCineDispatcher } from "../../context/CineContext";
+import { ADD_TO_CART } from "../../reducers/CineReducer";
 
 export default function MovieCard({ movie, onModalOpen }) {
-  const handleAddToCart = (e) => {
+  const carts = useCineContext();
+  const dispatch = useCineDispatcher();
+
+  const handleAddToCart = (e, movie) => {
     e.preventDefault();
     e.stopPropagation();
+    const index = carts.findIndex((m) => m.id === movie.id);
+    if (index === -1) {
+      dispatch({
+        type: ADD_TO_CART,
+        payload: movie,
+      });
+    } else {
+      alert("Item already added to cart");
+    }
   };
 
   return (
@@ -25,11 +39,15 @@ export default function MovieCard({ movie, onModalOpen }) {
         <p className="text-[#575A6E] text-sm mb-2">{movie.genre}</p>
         <StarRating value={movie.rating} />
         <a
+          onClick={(e) => {
+            e.preventDefault();
+            handleAddToCart(e, movie);
+          }}
           className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
           href="#"
         >
           <img src={tag} alt={"tag"} />
-          <span onClick={handleAddToCart}>${movie.price} | Add to Cart</span>
+          <span>${movie.price} | Add to Cart</span>
         </a>
       </figcaption>
     </figure>

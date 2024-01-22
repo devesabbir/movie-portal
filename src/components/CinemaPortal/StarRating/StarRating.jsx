@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import star from "./../../assets/star.svg";
+import star from "./../../../assets/star.svg";
 
 export default function StarRating({ value }) {
   const stars = Array(value).fill(star);
