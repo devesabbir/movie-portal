@@ -27,8 +27,9 @@ export default function MainLayout() {
         type: ADD_TO_CART,
         payload: movie,
       });
+      alert("Item Added to cart");
     } else {
-      alert("Item already added to cart");
+      alert("Item already in cart");
     }
   };
 
