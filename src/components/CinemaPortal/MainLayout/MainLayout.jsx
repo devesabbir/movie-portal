@@ -23,11 +23,12 @@ export default function MainLayout() {
     e?.stopPropagation();
     const index = carts.findIndex((m) => m.id === movie.id);
     if (index === -1) {
-      dispatch({
-        type: ADD_TO_CART,
-        payload: movie,
-      });
-      alert("Item Added to cart");
+      if (window.confirm("Sure to Add Cart?")) {
+        dispatch({
+          type: ADD_TO_CART,
+          payload: movie,
+        });
+      }
     } else {
       alert("Item already in cart");
     }
