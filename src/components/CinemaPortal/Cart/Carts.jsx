@@ -20,7 +20,7 @@ export default function Cart({ onCartHide }) {
       id: id,
     });
     toast.error("Item Remove From Cart", {
-      position: "top-right",
+      position: "bottom-right",
     });
   };
 

@@ -29,11 +29,11 @@ export default function MainLayout() {
         payload: movie,
       });
       toast.success("Item added successfully", {
-        position: "top-right",
+        position: "bottom-right",
       });
     } else {
       toast.info("Item Already In Your Cart", {
-        position: "top-right",
+        position: "bottom-right",
       });
     }
   };
