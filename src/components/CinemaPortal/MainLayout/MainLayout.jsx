@@ -4,11 +4,33 @@ import Sidebar from "../../Sidebar/Sidebar";
 import MovieCard from "../MovieCard";
 import Modal from "../Modal/Modal";
 import { getAllMovies } from "../../../data/movies";
+import {
+  useCineContext,
+  useCineDispatcher,
+} from "../../../context/CineContext";
+import { ADD_TO_CART } from "../../../reducers/CineReducer";
 
 export default function MainLayout() {
   const data = getAllMovies();
   const [modalOpen, setModalOpen] = useState(false);
   const [movieDetails, setMovieDetails] = useState({});
+
+  const carts = useCineContext();
+  const dispatch = useCineDispatcher();
+
+  const handleAddToCart = (e, movie) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    const index = carts.findIndex((m) => m.id === movie.id);
+    if (index === -1) {
+      dispatch({
+        type: ADD_TO_CART,
+        payload: movie,
+      });
+    } else {
+      alert("Item already added to cart");
+    }
+  };
 
   const handleModalOpen = (movie) => {
     setModalOpen(true);
@@ -16,6 +38,7 @@ export default function MainLayout() {
   };
 
   const handleModalClose = (e) => {
+    e?.stopPropagation();
     if (
       e?.target.className.includes("backdrop-blur-sm") ||
       e?.target.className.includes("cancel-btn")
@@ -39,6 +62,7 @@ export default function MainLayout() {
                   key={movie.id}
                   movie={movie}
                   onModalOpen={handleModalOpen}
+                  onAddToCart={handleAddToCart}
                 />
               );
             })}
@@ -46,7 +70,11 @@ export default function MainLayout() {
         </div>
       </div>
       {modalOpen && (
-        <Modal movieDetails={movieDetails} onModalClose={handleModalClose} />
+        <Modal
+          movieDetails={movieDetails}
+          onAddToCart={handleAddToCart}
+          onModalClose={handleModalClose}
+        />
       )}
     </main>
   );

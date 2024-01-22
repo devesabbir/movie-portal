@@ -2,7 +2,7 @@ import { getImageUrl } from "../../../utils/movie-utility";
 import tag from "../../../assets/tag.svg";
 
 /* eslint-disable react/prop-types */
-export default function Modal({ movieDetails, onModalClose }) {
+export default function Modal({ movieDetails, onModalClose, onAddToCart }) {
   return (
     <div
       onClick={onModalClose}
@@ -30,7 +30,11 @@ export default function Modal({ movieDetails, onModalClose }) {
             </p>
             <div className="grid lg:grid-cols-2 gap-2">
               <a
-                className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onAddToCart(e, movieDetails);
+                }}
+                className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm add-cart"
                 href="#"
               >
                 <img src={tag} alt={"tag"} />

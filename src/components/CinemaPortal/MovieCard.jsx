@@ -2,27 +2,8 @@
 import { getImageUrl } from "../../utils/movie-utility";
 import StarRating from "./StarRating/StarRating";
 import tag from "../../assets/tag.svg";
-import { useCineContext, useCineDispatcher } from "../../context/CineContext";
-import { ADD_TO_CART } from "../../reducers/CineReducer";
 
-export default function MovieCard({ movie, onModalOpen }) {
-  const carts = useCineContext();
-  const dispatch = useCineDispatcher();
-
-  const handleAddToCart = (e, movie) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const index = carts.findIndex((m) => m.id === movie.id);
-    if (index === -1) {
-      dispatch({
-        type: ADD_TO_CART,
-        payload: movie,
-      });
-    } else {
-      alert("Item already added to cart");
-    }
-  };
-
+export default function MovieCard({ movie, onModalOpen, onAddToCart }) {
   return (
     <figure
       style={{ cursor: "pointer" }}
@@ -41,7 +22,7 @@ export default function MovieCard({ movie, onModalOpen }) {
         <a
           onClick={(e) => {
             e.preventDefault();
-            handleAddToCart(e, movie);
+            onAddToCart(e, movie);
           }}
           className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
           href="#"
